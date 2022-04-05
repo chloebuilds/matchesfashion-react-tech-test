@@ -1,9 +1,8 @@
-import '../AdditionalFiles/App.css';
-import * as React from "react";
+import '../AdditionalFiles/App.css'
+import * as React from 'react'
 
 //This is the API url to fetch from
-
-const API_URL = `https://matchesfashion.com/api/products`;
+const API_URL = `https://matchesfashion.com/api/products`
 // const TAX_RATE = 0.08;
 
 function YourSolution() {
@@ -11,8 +10,7 @@ function YourSolution() {
   const [error, setError] = React.useState(null)
   const [currentPage, setCurrentPage] = React.useState(0)
 
-
-  React.useEffect (() => {
+  React.useEffect(() => {
     const getData = async () => {
       try {
         let res = await fetch(`${API_URL}?page=${currentPage}`)
@@ -20,41 +18,41 @@ function YourSolution() {
         console.log('fetch data', data)
         console.log('the products -->', data.products)
         setItems(data.products)
-        setCurrentPage()
       } catch (err) {
         setError(err)
         console.log(error)
-      } 
+      }
     }
     getData()
-  }, [])
+  }, [currentPage])
 
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
-    console.log('next, please')
+    console.log('Next:', currentPage)
+    //if (currentPage = 5) then disable next button
   }
 
-const handlePrev = () => {
-  console.log('go back')
+  const handlePrev = () => {
+    setCurrentPage(currentPage - 1)
+    console.log('Back:', currentPage)
   }
-  
 
-  return ( 
+  return (
     <div className="App">
-        <table id="products">
+      <table id="products">
         <thead>
-        <tr>
-          <th>Id</th>
-          <th>Brand</th>
-          <th>Name</th>
-          <th>Quantity Sold</th>
-          <th>Sold Price</th>
-          <th>Cost To Business</th>
-        </tr>
+          <tr>
+            <th>Id</th>
+            <th>Brand</th>
+            <th>Name</th>
+            <th>Quantity Sold</th>
+            <th>Sold Price</th>
+            <th>Cost To Business</th>
+          </tr>
         </thead>
-        {items.length && 
+        {items.length && (
           <tbody>
-            {items.map(item => (
+            {items.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.brand}</td>
@@ -62,24 +60,23 @@ const handlePrev = () => {
                 <td>{item.quantitySold}</td>
                 <td>{item.soldPrice}</td>
                 <td>{item.costToBusiness}</td>
-            </tr>
+              </tr>
             ))}
           </tbody>
-          }
+        )}
       </table>
-    
-      <button>First Page</button>
-      <button
-        handleClick={handlePrev}>
-          Previous Page
-          </button>
+      
       <button 
-        handleClick={handleNext}>
-          Next Page
+        disabled={currentPage === 0}
+        >First Page
       </button>
-      <button>Last Page</button>
+      <button 
+        onClick={handlePrev}
+        disabled={currentPage === 0}>Previous Page</button>
+      <button onClick={handleNext} disabled={currentPage === 4}>Next Page</button>
+      <button disabled={currentPage === 4}>Last Page</button>
     </div>
-  );
+  )
 }
 
-export default YourSolution;
+export default YourSolution
