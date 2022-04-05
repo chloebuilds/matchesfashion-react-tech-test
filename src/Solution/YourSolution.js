@@ -36,10 +36,16 @@ function YourSolution() {
   }
 
   const calculateProfit = (quantity, price, cost) => {
-    const profit = (price - cost) * quantity
-    const tax = profit * TAX_RATE
-    return profit - tax
+    if (quantity <= 10) {
+      return (price - cost) * quantity
+    } else {
+      const profitWithoutTax = (price - cost) * 10
+      const profit = (price - cost) * (quantity - 10)
+      const tax = profit * TAX_RATE
+      const totalProfit = (profit - tax) + profitWithoutTax
+      return totalProfit.toFixed(2)
   }
+}
 
   return (
     <div className="App">
