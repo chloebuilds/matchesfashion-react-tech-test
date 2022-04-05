@@ -2,7 +2,9 @@ import '../AdditionalFiles/App.css'
 import * as React from 'react'
 
 //This is the API url to fetch from
-const API_URL = `https://matchesfashion.com/api/products`
+const API_URL = `https://matchesfashion.com/api/products`;
+const FIRST_PAGE = 0;
+const LAST_PAGE = 4;
 // const TAX_RATE = 0.08;
 
 function YourSolution() {
@@ -15,8 +17,6 @@ function YourSolution() {
       try {
         let res = await fetch(`${API_URL}?page=${currentPage}`)
         let data = await res.json()
-        console.log('fetch data', data)
-        console.log('the products -->', data.products)
         setItems(data.products)
       } catch (err) {
         setError(err)
@@ -28,13 +28,10 @@ function YourSolution() {
 
   const handleNext = () => {
     setCurrentPage(currentPage + 1)
-    console.log('Next:', currentPage)
-    //if (currentPage = 5) then disable next button
   }
 
   const handlePrev = () => {
     setCurrentPage(currentPage - 1)
-    console.log('Back:', currentPage)
   }
 
   return (
@@ -66,14 +63,18 @@ function YourSolution() {
         )}
       </table>
 
-      <button disabled={currentPage === 0}>First Page</button>
-      <button onClick={handlePrev} disabled={currentPage === 0}>
+      <button disabled={currentPage === FIRST_PAGE}>
+        First Page
+      </button>
+      <button onClick={handlePrev} disabled={currentPage === FIRST_PAGE}>
         Previous Page
       </button>
-      <button onClick={handleNext} disabled={currentPage === 4}>
+      <button onClick={handleNext} disabled={currentPage === LAST_PAGE}>
         Next Page
       </button>
-      <button disabled={currentPage === 4}>Last Page</button>
+      <button disabled={currentPage === LAST_PAGE}>
+        Last Page
+      </button>
     </div>
   )
 }
