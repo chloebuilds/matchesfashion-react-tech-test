@@ -65,15 +65,14 @@ function YourSolution() {
           </tbody>
         )}
       </table>
-      
-      <button 
-        disabled={currentPage === 0}
-        >First Page
+
+      <button disabled={currentPage === 0}>First Page</button>
+      <button onClick={handlePrev} disabled={currentPage === 0}>
+        Previous Page
       </button>
-      <button 
-        onClick={handlePrev}
-        disabled={currentPage === 0}>Previous Page</button>
-      <button onClick={handleNext} disabled={currentPage === 4}>Next Page</button>
+      <button onClick={handleNext} disabled={currentPage === 4}>
+        Next Page
+      </button>
       <button disabled={currentPage === 4}>Last Page</button>
     </div>
   )
