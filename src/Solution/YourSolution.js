@@ -5,7 +5,8 @@ import * as React from 'react'
 const API_URL = `https://matchesfashion.com/api/products`;
 const FIRST_PAGE = 0;
 const LAST_PAGE = 4;
-// const TAX_RATE = 0.08;
+const TAX_RATE = 0.08;
+
 
 function YourSolution() {
   const [items, setItems] = React.useState([])
@@ -34,6 +35,12 @@ function YourSolution() {
     setCurrentPage(currentPage - 1)
   }
 
+  const calculateProfit = (quantity, price, cost) => {
+    const profit = (price - cost) * quantity
+    const tax = profit * TAX_RATE
+    return profit - tax
+  }
+
   return (
     <div className="App">
       <table id="products">
@@ -45,6 +52,7 @@ function YourSolution() {
             <th>Quantity Sold</th>
             <th>Sold Price</th>
             <th>Cost To Business</th>
+            <th>Profit after Tax</th>
           </tr>
         </thead>
         {items.length && (
@@ -55,8 +63,9 @@ function YourSolution() {
                 <td>{item.brand}</td>
                 <td>{item.name}</td>
                 <td>{item.quantitySold}</td>
-                <td>{item.soldPrice}</td>
-                <td>{item.costToBusiness}</td>
+                <td>£{item.soldPrice}</td>
+                <td>£{item.costToBusiness}</td>
+                <td>£{calculateProfit(item.quantitySold, item.soldPrice, item.costToBusiness)}</td>
               </tr>
             ))}
           </tbody>
