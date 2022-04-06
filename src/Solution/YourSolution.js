@@ -37,12 +37,13 @@ function YourSolution() {
 
   const calculateProfit = (quantity, price, cost) => {
     if (quantity <= 10) {
-      return (price - cost) * quantity
+      const profit = (price - cost) * quantity
+      return profit.toFixed(2)
     } else {
-      const profitWithoutTax = (price - cost) * 10
-      const profit = (price - cost) * (quantity - 10)
-      const tax = profit * TAX_RATE
-      const totalProfit = (profit - tax) + profitWithoutTax
+      const profitTaxExempt = (price - cost) * 10
+      const profitToBeTaxed = (price - cost) * (quantity - 10)
+      const tax = profitToBeTaxed * TAX_RATE
+      const totalProfit = (profitToBeTaxed - tax) + profitTaxExempt
       return totalProfit.toFixed(2)
   }
 }
